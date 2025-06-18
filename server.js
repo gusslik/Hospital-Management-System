@@ -1,6 +1,14 @@
 const express = require("express")
+const cors = require("cors")
+
+const patientRoute = require("./routes/patientRoute")
+
 const app = express()
 
-const PORT = 3000 || env.PORT
+app.use(cors())
+
+app.use("/patient", patientRoute)
+
+const PORT = 3000 || process.env.PORT
 
 app.listen(PORT, console.log("Hello World"))
