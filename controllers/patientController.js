@@ -60,11 +60,17 @@ exports.createPatient = async (req, res) => {
 
 exports.updatePatient = async (req, res) => {
     const {id} = req.params
-    
+
     const {first_name, last_name, email, phone, age} = req.body
-    
+
     if(!first_name || !last_name || !email || !phone || !age){
         return res.status(400).json({error: "Bad request: missing arguments"})
+    }
+
+    const patient = await pool.query("SELECT * FROM patients WHERE id = $1", [id])
+
+    if(patient.rows.length === 0){
+        return res.status(404).json({error: "Patient not found"})
     }
 
     if(!validatePhone(phone)){
