@@ -5,6 +5,9 @@ const patientController = require("../controllers/patientController")
 // Retrieve patient data
 route.get("/:id", patientController.getPatient)
 
+// Retrieve all patients data
+route.get("/", patientController.getAllPatients)
+
 // Create new patient
 route.post("/", patientController.createPatient)
 
